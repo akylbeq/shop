@@ -16,7 +16,6 @@ import Shops from './containers/main/Shops/Shops.tsx';
 
 const App = () => {
   const isClientPage = location.pathname.startsWith('/kg');
-  console.log(window.location.hostname);
 
   return (
     <>
@@ -37,8 +36,8 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Sign />} />
               <Route path="/shops" element={<Shops />} />
-              <Route path="/dashboard" element={<AdminLayout />}>
-                <Route path="main" element={<Shops />} />
+              <Route path="/shops/:id" element={<AdminLayout />}>
+                <Route path="main" element={<div>123</div>} />
                 <Route path="categories" element={<Categories />} />
                 <Route path="products" element={<Products />} />
                 <Route path="discount" element={<div>3</div>} />

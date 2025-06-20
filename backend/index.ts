@@ -18,7 +18,7 @@ app.use("/upload", uploadRouter);
 app.use("/users", usersRouter);
 app.use("/categories", categoriesRouter);
 app.use("/products", productsRouter);
-app.use("/shop", shopsRouter);
+app.use("/shops", shopsRouter);
 
 const run = async () => {
   await mongoose.connect("mongodb://localhost/zero");

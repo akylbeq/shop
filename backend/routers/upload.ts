@@ -13,15 +13,17 @@ uploadRouter.post(
   upload.fields([
     { name: "image", maxCount: 1 },
     { name: "galleryImages", maxCount: 6 },
+    { name: "logo", maxCount: 1 },
   ]),
   async (req, res, next) => {
     try {
       const files = req.files as {
         image?: Express.Multer.File[];
         galleryImages?: Express.Multer.File[];
+        logo?: Express.Multer.File[];
       };
 
-      if (!files?.image && !files?.galleryImages) {
+      if (!files?.image && !files?.galleryImages && files?.logo) {
         res.status(400).json({
           ok: false,
           message: "Files not uploaded",
@@ -30,6 +32,7 @@ uploadRouter.post(
       }
 
       const fileName = randomUUID();
+      let logoName = "";
 
       if (files.image) {
         const fileBuffer = files.image[0].buffer;
@@ -42,6 +45,21 @@ uploadRouter.post(
           ContentType: mimeType,
         });
 
+        await s3.send(command);
+      }
+
+      if (files.logo) {
+        const fileBuffer = files.logo[0].buffer;
+        const mimeType = files.logo[0].mimetype;
+        const name = randomUUID();
+
+        const command = new PutObjectCommand({
+          Bucket: process.env.AWS_BUCKET_NAME,
+          Key: name,
+          Body: fileBuffer,
+          ContentType: mimeType,
+        });
+        logoName = name;
         await s3.send(command);
       }
 
@@ -69,6 +87,9 @@ uploadRouter.post(
           ? "https://mybuckethsplay.s3.eu-north-1.amazonaws.com/" + fileName
           : undefined,
         galleryImages: galleryImages.length !== 0 ? galleryImages : undefined,
+        logo: files.logo
+          ? "https://mybuckethsplay.s3.eu-north-1.amazonaws.com/" + logoName
+          : undefined,
       });
     } catch (error) {
       res.status(500).send("Error uploading file " + error);

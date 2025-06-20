@@ -13,7 +13,7 @@ const Layout: React.FC<Props> = ({ children }) => {
       <header className="max-w-[1220] mx-auto px-4 sm:px-6 lg:px-8 border-b mb-0 w-full">
         <Appbar />
       </header>
-      <main className="max-w-[1220] mx-auto px-4 sm:px-6 lg:px-12 flex-1 w-full">
+      <main className="max-w-[1220] min-h-screen mx-auto px-4 sm:px-6 lg:px-12 flex-1 w-full">
         {children}
         <Toaster />
       </main>

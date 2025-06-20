@@ -38,6 +38,7 @@ export interface IShop {
   title: string;
   description: string;
   address: string;
+  slug: string;
   phone: string;
   instagram: string;
   whatsapp: string;

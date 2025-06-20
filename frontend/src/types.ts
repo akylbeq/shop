@@ -89,9 +89,41 @@ export interface Product extends ProductMutation {
 export interface UploadMutation {
   image: File | null;
   galleryImages: File[];
+  logo?: File | null;
 }
 
 export interface Upload {
   image: string;
   galleryImages: string[];
+  logo: string;
+}
+
+export interface ShopMutation {
+  name: string;
+  title: string;
+  slug: string;
+  description: string;
+  address: string;
+  phone: string;
+  instagram: string;
+  whatsapp: string;
+  logo: string;
+  image: string;
+}
+
+export interface IShop {
+  _id: string;
+  user: string;
+  name: string;
+  title: string;
+  slug: string;
+  description: string;
+  address: string;
+  phone: string;
+  instagram: string;
+  whatsapp: string;
+  logo: string;
+  image: string;
+  createdAt: string;
+  active: boolean;
 }

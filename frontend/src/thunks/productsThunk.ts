@@ -17,21 +17,22 @@ export const uploadImage = createAsyncThunk<
 >('products/upload', async (img, { rejectWithValue }) => {
   try {
     const form = new FormData();
-    console.log(img);
     if (img.image) {
       form.append('image', img.image);
+    }
+    if (img.logo) {
+      form.append('logo', img.logo);
     }
     if (img.galleryImages.length > 0) {
       img.galleryImages.forEach((i) => {
         form.append('galleryImages', i);
       });
     }
-    console.log(form);
     const response = await axiosApi.post('/upload', form);
     return response.data;
   } catch (err) {
     if (isAxiosError(err) && err.response?.data) {
-      rejectWithValue(err.response?.data);
+      return rejectWithValue(err.response?.data);
     }
   }
 });
@@ -47,7 +48,7 @@ export const createProduct = createAsyncThunk<
     return response.data;
   } catch (err) {
     if (isAxiosError(err) && err.response?.data) {
-      rejectWithValue(err.response?.data);
+      return rejectWithValue(err.response?.data);
     }
   }
 });
@@ -62,7 +63,7 @@ export const fetchProducts = createAsyncThunk<
     return response.data.products;
   } catch (err) {
     if (isAxiosError(err) && err.response?.data) {
-      rejectWithValue(err.response?.data);
+      return rejectWithValue(err.response?.data);
     }
   }
 });
@@ -77,7 +78,7 @@ export const editProduct = createAsyncThunk<
     return response.data;
   } catch (err) {
     if (isAxiosError(err) && err.response?.data) {
-      rejectWithValue(err.response?.data);
+      return rejectWithValue(err.response?.data);
     }
   }
 });
@@ -93,7 +94,7 @@ export const deleteProductById = createAsyncThunk<
     console.log(response.data);
   } catch (err) {
     if (isAxiosError(err) && err.response?.data) {
-      rejectWithValue(err.response?.data);
+      return rejectWithValue(err.response?.data);
     }
   }
 });
