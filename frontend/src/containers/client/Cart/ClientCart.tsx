@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from '../../../app/hook.ts';
-import { removeFromCart, selectCartItems } from './cartSlice.ts';
-import { products } from '../Home/ClientHome.tsx';
+import { useAppDispatch, useAppSelector } from '@/app/hook.ts';
 import { Link } from 'react-router-dom';
+import { products } from '../Home/ClientHome.tsx';
+import { removeFromCart, selectCartItems } from './cartSlice.ts';
 
 const ClientCart = () => {
   const dispatch = useAppDispatch();
